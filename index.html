@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="quiz-card">
+
+            <div class="header">
+                <span class="badge">🤖 IA QUIZ</span>
+                <h1>Teste seus conhecimentos sobre IA</h1>
+                <p>Responda às perguntas e descubra quanto você sabe sobre Inteligência Artificial.</p>
+            </div>
+
+            <div class="progress-area">
+                <div class="progress-info">
+                    <span id="questionNumber">Pergunta 1 de 10</span>
+                    <span id="score">Pontos: 0</span>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progress"></div>
+                </div>
+            </div>
+
+            <div id="quiz">
+                <h2 id="question">Carregando pergunta...</h2>
+
+                <div id="answers" class="answers"></div>
+
+                <div id="feedback" class="feedback hidden"></div>
+
+                <button id="nextButton" class="next-button hidden">
+                    Próxima pergunta →
+                </button>
+            </div>
+
+            <div id="result" class="result hidden">
+                <div class="result-icon">🎉</div>
+                <h2>Quiz concluído!</h2>
+                <p id="resultText"></p>
+
+                <button id="restartButton" class="next-button">
+                    Fazer novamente
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
