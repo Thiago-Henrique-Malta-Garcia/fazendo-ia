@@ -1,410 +1,179 @@
-const questions = [
-    {
-        question: "O que significa a sigla IA?",
-        answers: [
-            "Internet Avançada",
-            "Inteligência Artificial",
-            "Informação Automática",
-            "Interface Avançada"
-        ],
-        correct: 1,
-        explanation: "IA significa Inteligência Artificial, uma área da computação dedicada à criação de sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana."
-    },
-    {
-        question: "O que é Machine Learning?",
-        answers: [
-            "Um tipo de computador",
-            "Uma linguagem de programação",
-            "Uma área da IA que permite aprender com dados",
-            "Um sistema operacional"
-        ],
-        correct: 2,
-        explanation: "Machine Learning, ou aprendizado de máquina, permite que sistemas identifiquem padrões e façam previsões utilizando dados."
-    },
-    {
-        question: "O que é um modelo de IA?",
-        answers: [
-            "Um arquivo de imagem",
-            "Um sistema treinado para realizar determinadas tarefas",
-            "Um computador físico",
-            "Uma rede social"
-        ],
-        correct: 1,
-        explanation: "Um modelo de IA é um sistema treinado com dados para executar tarefas específicas, como gerar textos, reconhecer imagens ou realizar previsões."
-    },
-    {
-        question: "O que é um prompt?",
-        answers: [
-            "Uma pergunta ou instrução dada a uma IA",
-            "Um tipo de processador",
-            "Uma memória de computador",
-            "Um antivírus"
-        ],
-        correct: 0,
-        explanation: "Prompt é a instrução, pergunta ou contexto fornecido a uma IA para orientar a resposta que ela deve produzir."
-    },
-    {
-        question: "Qual destas é uma aplicação de Inteligência Artificial?",
-        answers: [
-            "Reconhecimento facial",
-            "Uma lâmpada comum",
-            "Uma cadeira",
-            "Um cabo USB"
-        ],
-        correct: 0,
-        explanation: "O reconhecimento facial utiliza modelos de IA para identificar características presentes em imagens."
-    },
-    {
-        question: "O que são dados de treinamento?",
-        answers: [
-            "Dados utilizados para ensinar um modelo",
-            "Arquivos apagados",
-            "Senhas de usuários",
-            "Peças de computador"
-        ],
-        correct: 0,
-        explanation: "Dados de treinamento são exemplos utilizados para ensinar um modelo a reconhecer padrões e executar tarefas."
-    },
-    {
-        question: "Uma IA sempre está correta?",
-        answers: [
-            "Sim, sempre",
-            "Não, ela pode cometer erros",
-            "Somente quando está conectada à internet",
-            "Somente em computadores rápidos"
-        ],
-        correct: 1,
-        explanation: "Sistemas de IA podem produzir respostas incorretas ou incompletas. Por isso, informações importantes devem ser verificadas."
-    },
-    {
-        question: "O que é uma rede neural artificial?",
-        answers: [
-            "Um tipo de cabo",
-            "Um modelo inspirado de forma simplificada no funcionamento dos neurônios",
-            "Uma rede Wi-Fi",
-            "Um navegador"
-        ],
-        correct: 1,
-        explanation: "Redes neurais artificiais são modelos computacionais compostos por unidades interconectadas que conseguem aprender padrões a partir de dados."
-    },
-    {
-        question: "O que uma IA generativa pode fazer?",
-        answers: [
-            "Somente calcular números",
-            "Gerar conteúdo como texto, imagens ou áudio",
-            "Somente acessar sites",
-            "Somente armazenar arquivos"
-        ],
-        correct: 1,
-        explanation: "Uma IA generativa pode criar novos conteúdos, incluindo textos, imagens, áudios, vídeos e códigos."
-    },
-    {
-        question: "Qual é uma boa prática ao utilizar uma IA?",
-        answers: [
-            "Confiar cegamente em qualquer resposta",
-            "Compartilhar todas as suas senhas",
-            "Verificar informações importantes",
-            "Nunca fazer perguntas"
-        ],
-        correct: 2,
-        explanation: "Verificar informações relevantes é essencial, especialmente quando decisões importantes dependem das respostas produzidas pela inteligência artificial."
-    }
-];
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080b18">
+    <meta name="description" content="Teste seus conhecimentos sobre Inteligência Artificial com o IA Quiz.">
+
+    <title>IA Quiz | Teste seus conhecimentos</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <main class="container">
+
+        <header class="top-header">
+            <a href="#" class="logo">
+                <span class="logo-icon">✦</span>
+                IA<span>QUIZ</span>
+            </a>
+
+            <div class="header-status">
+                <span class="status-dot"></span>
+                Desafio de conhecimentos
+            </div>
+        </header>
 
-// ELEMENTOS
+        <section class="quiz-card">
 
-const questionElement = document.getElementById("question");
-const answersElement = document.getElementById("answers");
-const feedbackElement = document.getElementById("feedback");
+            <div class="header">
 
-const nextButton = document.getElementById("nextButton");
-const questionNumber = document.getElementById("questionNumber");
-const scoreElement = document.getElementById("score");
+                <div class="badge">
+                    <span>🤖</span>
+                    INTELIGÊNCIA ARTIFICIAL
+                </div>
 
-const progressElement = document.getElementById("progress");
-const progressBar = document.getElementById("progressBar");
+                <h1>
+                    Quanto você sabe sobre
+                    <span>Inteligência Artificial?</span>
+                </h1>
 
-const quizElement = document.getElementById("quiz");
-const resultElement = document.getElementById("result");
+                <p>
+                    Responda às perguntas, teste seus conhecimentos
+                    e descubra seu nível de conhecimento sobre IA.
+                </p>
 
-const resultText = document.getElementById("resultText");
-const resultTitle = document.getElementById("resultTitle");
-const resultIcon = document.getElementById("resultIcon");
+                <div class="quiz-features">
+                    <div class="feature">
+                        <span>📚</span>
+                        10 perguntas
+                    </div>
 
-const finalScore = document.getElementById("finalScore");
-const percentage = document.getElementById("percentage");
-const resultMessage = document.getElementById("resultMessage");
+                    <div class="feature">
+                        <span>⚡</span>
+                        Resultado imediato
+                    </div>
+
+                    <div class="feature">
+                        <span>🎯</span>
+                        100% gratuito
+                    </div>
+                </div>
 
-const restartButton = document.getElementById("restartButton");
+            </div>
 
-// VARIÁVEIS
+            <div class="progress-area">
 
-let currentQuestion = 0;
-let score = 0;
-let answered = false;
+                <div class="progress-info">
+                    <span id="questionNumber">Pergunta 1 de 10</span>
+                    <span id="score">0 pontos</span>
+                </div>
 
-// CARREGAR PERGUNTA
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    aria-label="Progresso do quiz"
+                    aria-valuemin="0"
+                    aria-valuemax="10"
+                    aria-valuenow="0"
+                    id="progressBar"
+                >
+                    <div id="progress"></div>
+                </div>
 
-function loadQuestion() {
+            </div>
 
-    answered = false;
+            <div id="quiz">
 
-    const question = questions[currentQuestion];
+                <div class="question-label">
+                    <span class="question-icon">✦</span>
+                    SUA PERGUNTA
+                </div>
 
-    questionElement.textContent = question.question;
+                <h2 id="question">Carregando pergunta...</h2>
 
-    questionNumber.textContent =
-        `Pergunta ${currentQuestion + 1} de ${questions.length}`;
+                <div id="answers" class="answers"></div>
 
-    scoreElement.textContent = `${score} pontos`;
+                <div
+                    id="feedback"
+                    class="feedback hidden"
+                    role="status"
+                    aria-live="polite"
+                ></div>
 
-    // Atualizar progresso
+                <button
+                    id="nextButton"
+                    class="next-button hidden"
+                    type="button"
+                >
+                    Próxima pergunta
+                    <span>→</span>
+                </button>
 
-    const progress =
-        (currentQuestion / questions.length) * 100;
+            </div>
 
-    progressElement.style.width = `${progress}%`;
+            <div id="result" class="result hidden">
 
-    progressBar.setAttribute(
-        "aria-valuenow",
-        currentQuestion
-    );
+                <div class="result-icon" id="resultIcon">🏆</div>
 
-    // Limpar respostas anteriores
+                <div class="result-badge">DESAFIO FINALIZADO</div>
 
-    answersElement.replaceChildren();
+                <h2 id="resultTitle">Parabéns!</h2>
 
-    feedbackElement.classList.add("hidden");
+                <p id="resultText"></p>
 
-    nextButton.classList.add("hidden");
+                <div class="result-stats">
 
-    // Criar alternativas
+                    <div class="stat-box">
+                        <span class="stat-number" id="finalScore">0/10</span>
+                        <span class="stat-label">Acertos</span>
+                    </div>
 
-    question.answers.forEach((answer, index) => {
+                    <div class="stat-box">
+                        <span class="stat-number" id="percentage">0%</span>
+                        <span class="stat-label">Aproveitamento</span>
+                    </div>
 
-        const button = document.createElement("button");
+                </div>
 
-        button.className = "answer";
+                <div class="result-message" id="resultMessage"></div>
 
-        button.type = "button";
+                <button
+                    id="restartButton"
+                    class="next-button"
+                    type="button"
+                >
+                    <span>↻</span>
+                    Fazer novamente
+                </button>
 
-        button.textContent = answer;
+            </div>
 
-        button.addEventListener("click", () => {
-            selectAnswer(index, button);
-        });
+            <footer class="card-footer">
+                <span>✦</span>
+                Aprenda hoje. Inove amanhã.
+            </footer>
 
-        answersElement.appendChild(button);
+        </section>
 
-    });
+        <footer class="page-footer">
+            Desenvolvido para quem quer aprender sobre o futuro.
+            <span>© 2026 IA Quiz</span>
+        </footer>
 
-}
+    </main>
 
-// SELECIONAR RESPOSTA
+    <script src="script.js"></script>
 
-function selectAnswer(selectedIndex, selectedButton) {
-
-    if (answered) return;
-
-    answered = true;
-
-    const question = questions[currentQuestion];
-
-    const buttons =
-        answersElement.querySelectorAll(".answer");
-
-    // Desabilitar todas as alternativas
-
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
-
-    const isCorrect =
-        selectedIndex === question.correct;
-
-    // Resposta correta
-
-    if (isCorrect) {
-
-        score++;
-
-        selectedButton.classList.add("correct");
-
-        feedbackElement.innerHTML =
-            `<strong>✓ Resposta correta!</strong><br>${question.explanation}`;
-
-    } else {
-
-        // Resposta incorreta
-
-        selectedButton.classList.add("wrong");
-
-        buttons[question.correct].classList.add("correct");
-
-        feedbackElement.innerHTML =
-            `<strong>✕ Resposta incorreta!</strong><br>${question.explanation}`;
-
-    }
-
-    // Atualizar pontuação
-
-    scoreElement.textContent = `${score} pontos`;
-
-    // Mostrar feedback
-
-    feedbackElement.classList.remove("hidden");
-
-    // Atualizar botão
-
-    nextButton.classList.remove("hidden");
-
-    if (currentQuestion === questions.length - 1) {
-
-        nextButton.innerHTML =
-            `Ver meu resultado <span>→</span>`;
-
-    } else {
-
-        nextButton.innerHTML =
-            `Próxima pergunta <span>→</span>`;
-
-    }
-
-    nextButton.focus();
-
-}
-
-// PRÓXIMA PERGUNTA
-
-nextButton.addEventListener("click", () => {
-
-    if (!answered) return;
-
-    currentQuestion++;
-
-    if (currentQuestion < questions.length) {
-
-        loadQuestion();
-
-    } else {
-
-        showResult();
-
-    }
-
-});
-
-// RESULTADO FINAL
-
-function showResult() {
-
-    quizElement.classList.add("hidden");
-
-    resultElement.classList.remove("hidden");
-
-    const total = questions.length;
-
-    const resultPercentage =
-        Math.round((score / total) * 100);
-
-    finalScore.textContent =
-        `${score}/${total}`;
-
-    percentage.textContent =
-        `${resultPercentage}%`;
-
-    let title;
-    let message;
-    let icon;
-
-    if (score === 10) {
-
-        title = "Conhecimento extraordinário!";
-
-        message =
-            "Você domina muito bem os conceitos de Inteligência Artificial. Um resultado perfeito!";
-
-        icon = "🏆";
-
-    } else if (score >= 8) {
-
-        title = "Excelente trabalho!";
-
-        message =
-            "Você possui um ótimo conhecimento sobre Inteligência Artificial. Continue assim!";
-
-        icon = "🚀";
-
-    } else if (score >= 6) {
-
-        title = "Muito bom!";
-
-        message =
-            "Você já possui uma boa base sobre IA. Continue aprendendo e evoluindo!";
-
-        icon = "🔥";
-
-    } else if (score >= 4) {
-
-        title = "Você está evoluindo!";
-
-        message =
-            "Você já conhece alguns conceitos importantes. Que tal estudar um pouco mais e tentar novamente?";
-
-        icon = "💡";
-
-    } else {
-
-        title = "Hora de aprender!";
-
-        message =
-            "Não desanime! A Inteligência Artificial é um universo cheio de possibilidades. Continue estudando!";
-
-        icon = "📚";
-
-    }
-
-    resultTitle.textContent = title;
-
-    resultText.textContent =
-        `Você concluiu o desafio com ${resultPercentage}% de aproveitamento.`;
-
-    resultIcon.textContent = icon;
-
-    resultMessage.textContent = message;
-
-    progressElement.style.width = "100%";
-
-    progressBar.setAttribute(
-        "aria-valuenow",
-        total
-    );
-
-}
-
-// REINICIAR QUIZ
-
-restartButton.addEventListener("click", () => {
-
-    currentQuestion = 0;
-
-    score = 0;
-
-    answered = false;
-
-    resultElement.classList.add("hidden");
-
-    quizElement.classList.remove("hidden");
-
-    loadQuestion();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-});
-
-// INICIAR
-
-loadQuestion();
+</body>
+</html>
