@@ -10,7 +10,6 @@ const questions = [
         correct: 1,
         explanation: "IA significa Inteligência Artificial, uma área da computação dedicada à criação de sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana."
     },
-
     {
         question: "O que é Machine Learning?",
         answers: [
@@ -20,9 +19,8 @@ const questions = [
             "Um sistema operacional"
         ],
         correct: 2,
-        explanation: "Machine Learning, ou aprendizado de máquina, permite que sistemas encontrem padrões e façam previsões ou decisões utilizando dados."
+        explanation: "Machine Learning, ou aprendizado de máquina, permite que sistemas identifiquem padrões e façam previsões utilizando dados."
     },
-
     {
         question: "O que é um modelo de IA?",
         answers: [
@@ -32,9 +30,8 @@ const questions = [
             "Uma rede social"
         ],
         correct: 1,
-        explanation: "Um modelo de IA é um sistema treinado com dados para executar tarefas específicas, como gerar texto, reconhecer imagens ou fazer previsões."
+        explanation: "Um modelo de IA é um sistema treinado com dados para executar tarefas específicas, como gerar textos, reconhecer imagens ou realizar previsões."
     },
-
     {
         question: "O que é um prompt?",
         answers: [
@@ -44,9 +41,8 @@ const questions = [
             "Um antivírus"
         ],
         correct: 0,
-        explanation: "Prompt é a instrução, pergunta ou contexto fornecido a uma IA para orientar a resposta ou ação que ela deve produzir."
+        explanation: "Prompt é a instrução, pergunta ou contexto fornecido a uma IA para orientar a resposta que ela deve produzir."
     },
-
     {
         question: "Qual destas é uma aplicação de Inteligência Artificial?",
         answers: [
@@ -56,9 +52,8 @@ const questions = [
             "Um cabo USB"
         ],
         correct: 0,
-        explanation: "Reconhecimento facial é uma aplicação de IA que utiliza modelos capazes de identificar características presentes em imagens."
+        explanation: "O reconhecimento facial utiliza modelos de IA para identificar características presentes em imagens."
     },
-
     {
         question: "O que são dados de treinamento?",
         answers: [
@@ -68,9 +63,8 @@ const questions = [
             "Peças de computador"
         ],
         correct: 0,
-        explanation: "Dados de treinamento são exemplos utilizados durante o processo de treinamento para que o modelo aprenda padrões."
+        explanation: "Dados de treinamento são exemplos utilizados para ensinar um modelo a reconhecer padrões e executar tarefas."
     },
-
     {
         question: "Uma IA sempre está correta?",
         answers: [
@@ -80,21 +74,19 @@ const questions = [
             "Somente em computadores rápidos"
         ],
         correct: 1,
-        explanation: "Não. Sistemas de IA podem produzir respostas incorretas, incompletas ou inadequadas. Por isso, informações importantes devem ser verificadas."
+        explanation: "Sistemas de IA podem produzir respostas incorretas ou incompletas. Por isso, informações importantes devem ser verificadas."
     },
-
     {
         question: "O que é uma rede neural artificial?",
         answers: [
             "Um tipo de cabo",
-            "Um modelo inspirado de forma simplificada no funcionamento de neurônios",
+            "Um modelo inspirado de forma simplificada no funcionamento dos neurônios",
             "Uma rede Wi-Fi",
             "Um navegador"
         ],
         correct: 1,
         explanation: "Redes neurais artificiais são modelos computacionais compostos por unidades interconectadas que conseguem aprender padrões a partir de dados."
     },
-
     {
         question: "O que uma IA generativa pode fazer?",
         answers: [
@@ -104,9 +96,8 @@ const questions = [
             "Somente armazenar arquivos"
         ],
         correct: 1,
-        explanation: "IA generativa pode criar novos conteúdos, incluindo texto, imagens, áudio, vídeo e código, dependendo do modelo."
+        explanation: "Uma IA generativa pode criar novos conteúdos, incluindo textos, imagens, áudios, vídeos e códigos."
     },
-
     {
         question: "Qual é uma boa prática ao utilizar uma IA?",
         answers: [
@@ -116,51 +107,87 @@ const questions = [
             "Nunca fazer perguntas"
         ],
         correct: 2,
-        explanation: "É importante verificar informações relevantes, especialmente quando decisões importantes dependem da resposta da IA."
+        explanation: "Verificar informações relevantes é essencial, especialmente quando decisões importantes dependem das respostas produzidas pela inteligência artificial."
     }
 ];
+
+// ELEMENTOS
+
+const questionElement = document.getElementById("question");
+const answersElement = document.getElementById("answers");
+const feedbackElement = document.getElementById("feedback");
+
+const nextButton = document.getElementById("nextButton");
+const questionNumber = document.getElementById("questionNumber");
+const scoreElement = document.getElementById("score");
+
+const progressElement = document.getElementById("progress");
+const progressBar = document.getElementById("progressBar");
+
+const quizElement = document.getElementById("quiz");
+const resultElement = document.getElementById("result");
+
+const resultText = document.getElementById("resultText");
+const resultTitle = document.getElementById("resultTitle");
+const resultIcon = document.getElementById("resultIcon");
+
+const finalScore = document.getElementById("finalScore");
+const percentage = document.getElementById("percentage");
+const resultMessage = document.getElementById("resultMessage");
+
+const restartButton = document.getElementById("restartButton");
+
+// VARIÁVEIS
 
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 
-const questionElement = document.getElementById("question");
-const answersElement = document.getElementById("answers");
-const feedbackElement = document.getElementById("feedback");
-const nextButton = document.getElementById("nextButton");
-const questionNumber = document.getElementById("questionNumber");
-const scoreElement = document.getElementById("score");
-const progressElement = document.getElementById("progress");
-
-const quizElement = document.getElementById("quiz");
-const resultElement = document.getElementById("result");
-const resultText = document.getElementById("resultText");
-const restartButton = document.getElementById("restartButton");
+// CARREGAR PERGUNTA
 
 function loadQuestion() {
+
     answered = false;
 
     const question = questions[currentQuestion];
 
     questionElement.textContent = question.question;
+
     questionNumber.textContent =
         `Pergunta ${currentQuestion + 1} de ${questions.length}`;
 
-    scoreElement.textContent = `Pontos: ${score}`;
+    scoreElement.textContent = `${score} pontos`;
+
+    // Atualizar progresso
 
     const progress =
-        ((currentQuestion + 1) / questions.length) * 100;
+        (currentQuestion / questions.length) * 100;
 
     progressElement.style.width = `${progress}%`;
 
-    answersElement.innerHTML = "";
+    progressBar.setAttribute(
+        "aria-valuenow",
+        currentQuestion
+    );
+
+    // Limpar respostas anteriores
+
+    answersElement.replaceChildren();
+
     feedbackElement.classList.add("hidden");
+
     nextButton.classList.add("hidden");
 
+    // Criar alternativas
+
     question.answers.forEach((answer, index) => {
+
         const button = document.createElement("button");
 
         button.className = "answer";
+
+        button.type = "button";
+
         button.textContent = answer;
 
         button.addEventListener("click", () => {
@@ -168,85 +195,216 @@ function loadQuestion() {
         });
 
         answersElement.appendChild(button);
+
     });
+
 }
 
+// SELECIONAR RESPOSTA
+
 function selectAnswer(selectedIndex, selectedButton) {
+
     if (answered) return;
 
     answered = true;
 
     const question = questions[currentQuestion];
-    const buttons = document.querySelectorAll(".answer");
+
+    const buttons =
+        answersElement.querySelectorAll(".answer");
+
+    // Desabilitar todas as alternativas
 
     buttons.forEach(button => {
         button.disabled = true;
     });
 
-    if (selectedIndex === question.correct) {
+    const isCorrect =
+        selectedIndex === question.correct;
+
+    // Resposta correta
+
+    if (isCorrect) {
+
         score++;
+
         selectedButton.classList.add("correct");
 
         feedbackElement.innerHTML =
-            `✅ <strong>Correto!</strong><br>${question.explanation}`;
+            `<strong>✓ Resposta correta!</strong><br>${question.explanation}`;
+
     } else {
+
+        // Resposta incorreta
+
         selectedButton.classList.add("wrong");
+
         buttons[question.correct].classList.add("correct");
 
         feedbackElement.innerHTML =
-            `❌ <strong>Resposta incorreta.</strong><br>${question.explanation}`;
+            `<strong>✕ Resposta incorreta!</strong><br>${question.explanation}`;
+
     }
 
-    scoreElement.textContent = `Pontos: ${score}`;
+    // Atualizar pontuação
+
+    scoreElement.textContent = `${score} pontos`;
+
+    // Mostrar feedback
 
     feedbackElement.classList.remove("hidden");
+
+    // Atualizar botão
+
     nextButton.classList.remove("hidden");
 
     if (currentQuestion === questions.length - 1) {
-        nextButton.textContent = "Ver resultado →";
+
+        nextButton.innerHTML =
+            `Ver meu resultado <span>→</span>`;
+
     } else {
-        nextButton.textContent = "Próxima pergunta →";
+
+        nextButton.innerHTML =
+            `Próxima pergunta <span>→</span>`;
+
     }
+
+    nextButton.focus();
+
 }
 
+// PRÓXIMA PERGUNTA
+
 nextButton.addEventListener("click", () => {
+
+    if (!answered) return;
+
     currentQuestion++;
 
     if (currentQuestion < questions.length) {
+
         loadQuestion();
+
     } else {
+
         showResult();
+
     }
+
 });
 
+// RESULTADO FINAL
+
 function showResult() {
+
     quizElement.classList.add("hidden");
+
     resultElement.classList.remove("hidden");
 
-    let message;
+    const total = questions.length;
 
-    if (score === questions.length) {
-        message = "🏆 Perfeito! Você acertou todas as perguntas!";
-    } else if (score >= 7) {
-        message = "🔥 Muito bom! Você entende bastante de IA.";
-    } else if (score >= 5) {
-        message = "👍 Bom trabalho! Você já possui uma boa base.";
+    const resultPercentage =
+        Math.round((score / total) * 100);
+
+    finalScore.textContent =
+        `${score}/${total}`;
+
+    percentage.textContent =
+        `${resultPercentage}%`;
+
+    let title;
+    let message;
+    let icon;
+
+    if (score === 10) {
+
+        title = "Conhecimento extraordinário!";
+
+        message =
+            "Você domina muito bem os conceitos de Inteligência Artificial. Um resultado perfeito!";
+
+        icon = "🏆";
+
+    } else if (score >= 8) {
+
+        title = "Excelente trabalho!";
+
+        message =
+            "Você possui um ótimo conhecimento sobre Inteligência Artificial. Continue assim!";
+
+        icon = "🚀";
+
+    } else if (score >= 6) {
+
+        title = "Muito bom!";
+
+        message =
+            "Você já possui uma boa base sobre IA. Continue aprendendo e evoluindo!";
+
+        icon = "🔥";
+
+    } else if (score >= 4) {
+
+        title = "Você está evoluindo!";
+
+        message =
+            "Você já conhece alguns conceitos importantes. Que tal estudar um pouco mais e tentar novamente?";
+
+        icon = "💡";
+
     } else {
-        message = "📚 Continue estudando! Você pode melhorar bastante.";
+
+        title = "Hora de aprender!";
+
+        message =
+            "Não desanime! A Inteligência Artificial é um universo cheio de possibilidades. Continue estudando!";
+
+        icon = "📚";
+
     }
 
-    resultText.innerHTML =
-        `${message}<br><br>Você acertou <strong>${score}</strong> de <strong>${questions.length}</strong> perguntas.`;
+    resultTitle.textContent = title;
+
+    resultText.textContent =
+        `Você concluiu o desafio com ${resultPercentage}% de aproveitamento.`;
+
+    resultIcon.textContent = icon;
+
+    resultMessage.textContent = message;
+
+    progressElement.style.width = "100%";
+
+    progressBar.setAttribute(
+        "aria-valuenow",
+        total
+    );
+
 }
 
+// REINICIAR QUIZ
+
 restartButton.addEventListener("click", () => {
+
     currentQuestion = 0;
+
     score = 0;
 
+    answered = false;
+
     resultElement.classList.add("hidden");
+
     quizElement.classList.remove("hidden");
 
     loadQuestion();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 });
+
+// INICIAR
 
 loadQuestion();
